@@ -27,7 +27,7 @@ if not GROQ_API_KEY:
 app = FastAPI(
     title="Prashant AI Portfolio API",
     description="AI assistant for Prashant's portfolio",
-    version="1.0.0"
+    version="1.0.1"
 )
 
 
