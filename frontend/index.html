@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Prashant Padwal — AI & Full Stack Software Engineer. Interactive macOS-style portfolio." />
+    <title>Prashant Padwal — Portfolio</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Lucide Icons (pinned version) -->
+    <script src="https://unpkg.com/lucide@0.446.0/dist/umd/lucide.min.js"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/components.css" />
+</head>
+
+<body>
+
+    <!-- ============================================================
+     DESKTOP WALLPAPER (animated gradient)
+  ============================================================ -->
+    <div class="wallpaper" id="wallpaper">
+        <div class="wallpaper-blob blob-a"></div>
+        <div class="wallpaper-blob blob-b"></div>
+        <div class="wallpaper-blob blob-c"></div>
+    </div>
+
+    <!-- ============================================================
+     MENU BAR
+  ============================================================ -->
+    <header class="menu-bar" id="menu-bar">
+        <div class="menu-bar-left">
+            <span class="apple-logo" onclick="openWindow('finder')">
+                <img src="assets/images/apple-logo.png" alt="Apple">
+            </span>
+            <span class="menu-brand">Prashant's Portfolio</span>
+            <nav class="menu-nav">
+                <button class="menu-nav-item" onclick="openWindow('finder')">About</button>
+                <button class="menu-nav-item" onclick="openWindow('projects')">Projects</button>
+                <button class="menu-nav-item" onclick="openWindow('contact')">Contact</button>
+                <a class="menu-nav-item" href="assets/resume/Prashant_Padwal_Resume.pdf" download>Resume</a>
+            </nav>
+        </div>
+        <div class="menu-bar-right">
+            <span class="menu-icon-btn" title="GitHub">
+                <a href="https://github.com/codeanytimeprashant" target="_blank" rel="noopener">
+                    <i data-lucide="github"></i>
+                </a>
+            </span>
+            <span class="menu-icon-btn">
+                <i data-lucide="wifi"></i>
+            </span>
+            <span class="menu-icon-btn">
+                <i data-lucide="search"></i>
+            </span>
+            <span class="menu-clock" id="menu-clock">Loading...</span>
+        </div>
+    </header>
+
+    <!-- ============================================================
+     DESKTOP AREA
+  ============================================================ -->
+    <main class="desktop" id="desktop">
+
+        <!-- Hero text in the center of wallpaper -->
+        <div class="desktop-hero">
+            <p class="desktop-hero-sub">Hey, I'm Prashant! welcome to my</p>
+            <h1 class="desktop-hero-title">PORTFOLIO</h1>
+        </div>
+
+        <!-- Desktop Icons (left column) -->
+        <div class="desktop-icons" id="desktop-icons">
+
+            <div class="desktop-icon" ondblclick="openWindow('mediassist')" tabindex="0"
+                aria-label="Open MediAssist AI project">
+                <div class="icon-img icon-folder icon-blue"></div>
+                <span>MediAssist AI</span>
+            </div>
+
+            <div class="desktop-icon" ondblclick="openWindow('shopnest')" tabindex="0"
+                aria-label="Open ShopNest project">
+                <div class="icon-img icon-folder icon-orange"></div>
+                <span>ShopNest</span>
+            </div>
+
+            <div class="desktop-icon" ondblclick="openWindow('recruiterai')" tabindex="0"
+                aria-label="Open RecruiterAI project">
+                <div class="icon-img icon-folder icon-green"></div>
+                <span>RecruiterAI</span>
+            </div>
+
+            <div class="desktop-icon" ondblclick="openWindow('dpi')" tabindex="0" aria-label="Open DPI project">
+                <div class="icon-img icon-folder icon-purple"></div>
+                <span>Deep Packet Inspector</span>
+            </div>
+
+            <div class="desktop-icon" ondblclick="openFile('resume')" tabindex="0" aria-label="Open Resume">
+                <div class="icon-img icon-file-pdf"></div>
+                <span>Resume.pdf</span>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ============================================================
+     DOCK
+  ============================================================ -->
+    <div class="dock" id="dock">
+        <button class="dock-item" onclick="openWindow('finder')" title="About Me" id="dock-finder">
+            <div class="dock-icon dock-icon-finder">
+                <i data-lucide="user-circle"></i>
+            </div>
+            <span class="dock-label">About</span>
+            <span class="dock-dot" id="dot-finder"></span>
+        </button>
+
+        <button class="dock-item" onclick="openWindow('projects')" title="Projects" id="dock-projects">
+            <div class="dock-icon dock-icon-projects">
+                <i data-lucide="layout-grid"></i>
+            </div>
+            <span class="dock-label">Projects</span>
+            <span class="dock-dot" id="dot-projects"></span>
+        </button>
+
+        <button class="dock-item" onclick="openWindow('terminal')" title="Tech Stack" id="dock-terminal">
+            <div class="dock-icon dock-icon-terminal">
+                <i data-lucide="terminal"></i>
+            </div>
+            <span class="dock-label">Tech Stack</span>
+            <span class="dock-dot" id="dot-terminal"></span>
+        </button>
+
+        <button class="dock-item" onclick="openWindow('contact')" title="Contact" id="dock-contact">
+            <div class="dock-icon dock-icon-contact">
+                <i data-lucide="address-book" style="display:none"></i>
+                <span style="font-size:1.4rem">📇</span>
+            </div>
+            <span class="dock-label">Contact</span>
+            <span class="dock-dot" id="dot-contact"></span>
+        </button>
+
+        <button class="dock-item dock-item-askme" onclick="openWindow('chat')" title="Ask Me (AI)" id="dock-chat">
+            <div class="dock-icon dock-icon-chat">
+                <i data-lucide="sparkles"></i>
+                <span class="dock-askme-label">Ask AI</span>
+            </div>
+            <span class="dock-label">AI Chat</span>
+            <span class="dock-dot" id="dot-chat"></span>
+        </button>
+    </div>
+
+    <!-- ============================================================
+     WINDOWS
+  ============================================================ -->
+
+    <!-- FINDER / ABOUT WINDOW -->
+    <div class="win" id="win-finder" style="display:none; top:80px; left:200px; width:700px; height:520px;">
+        <div class="win-titlebar" onmousedown="startDrag(event,'win-finder')">
+            <div class="win-controls">
+                <button class="win-btn win-close" onclick="closeWindow('finder')" title="Close"></button>
+                <button class="win-btn win-min" onclick="minimizeWindow('finder')" title="Minimize"></button>
+                <button class="win-btn win-max" title="Maximize"></button>
+            </div>
+            <span class="win-title"><i data-lucide="user-circle" style="width:13px;height:13px;margin-right:5px;"></i>
+                prashant.dev</span>
+            <div style="width:52px"></div>
+        </div>
+        <div class="win-body" style="overflow-y: auto;">
+            <!-- Profile header -->
+            <div class="finder-profile">
+                <div class="finder-avatar">PP</div>
+                <div>
+                    <h2 class="finder-name">Prashant Padwal</h2>
+                    <p class="finder-role">AI Engineer · Full Stack Developer</p>
+                    <div class="finder-tags">
+                        <span class="ftag ftag-active">AI / RAG</span>
+                        <span class="ftag">Python</span>
+                        <span class="ftag">Node.js</span>
+                        <span class="ftag">FastAPI</span>
+                        <span class="ftag">MERN</span>
+                    </div>
+                </div>
+            </div>
+            <p class="finder-bio">
+                Building intelligent, scalable systems at the intersection of AI and full-stack engineering.
+                CS student at JUIT (Batch 2027) with 200+ LeetCode problems solved, AWS certified, and
+                passionate about RAG pipelines, LLMs, and backend architecture.
+            </p>
+            <div class="finder-social-row">
+                <a class="finder-social-btn" href="https://github.com/codeanytimeprashant" target="_blank"
+                    rel="noopener">
+                    <i data-lucide="github"></i> GitHub
+                </a>
+                <a class="finder-social-btn" href="https://linkedin.com/in/prashant-padwal-b7532125a" target="_blank"
+                    rel="noopener">
+                    <i data-lucide="linkedin"></i> LinkedIn
+                </a>
+                <a class="finder-social-btn" href="mailto:ppadwal520@gmail.com">
+                    <i data-lucide="mail"></i> Email
+                </a>
+                <a class="finder-social-btn" href="https://leetcode.com/u/CODEanytime365" target="_blank"
+                    rel="noopener">
+                    <i data-lucide="code-2"></i> LeetCode
+                </a>
+            </div>
+
+            <div class="finder-section-label">Education</div>
+            <div class="finder-item">
+                <div class="finder-item-icon" style="background:rgba(79,140,255,.15);">🎓</div>
+                <div>
+                    <p class="finder-item-title">B.Tech — Computer Science & Engineering</p>
+                    <p class="finder-item-sub">JUIT, Waknaghat · 2023 – 2027</p>
+                </div>
+            </div>
+
+            <div class="finder-section-label">Experience</div>
+            <div class="finder-item">
+                <div class="finder-item-icon" style="background:rgba(103,232,249,.15);">🧠</div>
+                <div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <p class="finder-item-title">AI Engineer — MediAssist AI</p>
+                        <span class="finder-badge finder-badge-active">2025 – Present</span>
+                    </div>
+                    <p class="finder-item-sub">Academic Project · JUIT · RAG · LLMs · FastAPI · FAISS</p>
+                </div>
+            </div>
+            <div class="finder-item">
+                <div class="finder-item-icon" style="background:rgba(251,146,60,.15);">🛍️</div>
+                <div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <p class="finder-item-title">Full Stack Developer — ShopNest</p>
+                        <span class="finder-badge">2024 – 2025</span>
+                    </div>
+                    <p class="finder-item-sub">Personal Project · Node.js · MongoDB · Razorpay</p>
+                </div>
+            </div>
+            <div class="finder-item">
+                <div class="finder-item-icon" style="background:rgba(168,85,247,.15);">💻</div>
+                <div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <p class="finder-item-title">Competitive Programmer</p>
+                        <span class="finder-badge">2022 – Present</span>
+                    </div>
+                    <p class="finder-item-sub">LeetCode · 200+ problems · C++ · DSA</p>
+                </div>
+            </div>
+
+            <div class="finder-section-label">Achievements</div>
+            <div class="finder-item">
+                <div class="finder-item-icon" style="background:rgba(34,197,94,.15);">🏆</div>
+                <div>
+                    <p class="finder-item-title">200+ LeetCode · AWS Cloud Certified</p>
+                    <p class="finder-item-sub">Infosys Springboard Certified · Hackathon Participant</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECTS WINDOW -->
+    <div class="win" id="win-projects" style="display:none; top:70px; left:180px; width:740px; height:560px;">
+        <div class="win-titlebar" onmousedown="startDrag(event,'win-projects')">
+            <div class="win-controls">
+                <button class="win-btn win-close" onclick="closeWindow('projects')" title="Close"></button>
+                <button class="win-btn win-min" onclick="minimizeWindow('projects')" title="Minimize"></button>
+                <button class="win-btn win-max" title="Maximize"></button>
+            </div>
+            <span class="win-title"><i data-lucide="layout-grid" style="width:13px;height:13px;margin-right:5px;"></i>
+                Projects</span>
+            <div style="width:52px"></div>
+        </div>
+        <div class="win-body" style="overflow-y: auto; padding: 20px;">
+            <div class="projects-grid-mac">
+
+                <div class="proj-card" onclick="openWindow('mediassist')">
+                    <div class="proj-card-banner mediassist-bg">🏥</div>
+                    <div class="proj-card-body">
+                        <div class="proj-card-tags">
+                            <span class="proj-tag tag-cyan">AI + RAG</span>
+                            <span class="proj-tag tag-featured">✦ Featured</span>
+                        </div>
+                        <h3 class="proj-card-name">MediAssist AI</h3>
+                        <p class="proj-card-desc">Clinical Decision Support Platform using RAG + LLMs + FAISS over
+                            patient PDFs.</p>
+                        <div class="proj-stack">
+                            <span class="proj-pill">Python</span><span class="proj-pill">FastAPI</span><span
+                                class="proj-pill">FAISS</span><span class="proj-pill">LLMs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card" onclick="openWindow('shopnest')">
+                    <div class="proj-card-banner shopnest-bg">🛍️</div>
+                    <div class="proj-card-body">
+                        <div class="proj-card-tags">
+                            <span class="proj-tag tag-blue">Full Stack</span>
+                            <span class="proj-tag tag-green">Live</span>
+                        </div>
+                        <h3 class="proj-card-name">ShopNest</h3>
+                        <p class="proj-card-desc">Production-grade e-commerce with JWT auth, Razorpay payments, and
+                            admin dashboard.</p>
+                        <div class="proj-stack">
+                            <span class="proj-pill">Node.js</span><span class="proj-pill">MongoDB</span><span
+                                class="proj-pill">EJS</span><span class="proj-pill">Razorpay</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card" onclick="openWindow('recruiterai')">
+                    <div class="proj-card-banner recruiter-bg">💼</div>
+                    <div class="proj-card-body">
+                        <div class="proj-card-tags">
+                            <span class="proj-tag tag-cyan">AI</span>
+                            <span class="proj-tag tag-purple">CLI</span>
+                        </div>
+                        <h3 class="proj-card-name">RecruiterAI</h3>
+                        <p class="proj-card-desc">RAG-based resume intelligence CLI using FAISS + sentence embeddings +
+                            LLM.</p>
+                        <div class="proj-stack">
+                            <span class="proj-pill">Python</span><span class="proj-pill">FAISS</span><span
+                                class="proj-pill">LLM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="proj-card" onclick="openWindow('dpi')">
+                    <div class="proj-card-banner dpi-bg">🔍</div>
+                    <div class="proj-card-body">
+                        <div class="proj-card-tags">
+                            <span class="proj-tag tag-orange">Networking</span>
+                        </div>
+                        <h3 class="proj-card-name">Deep Packet Inspector</h3>
+                        <p class="proj-card-desc">Real-time TCP/IP traffic analyzer with Scapy — captures, filters, and
+                            inspects packets.</p>
+                        <div class="proj-stack">
+                            <span class="proj-pill">Python</span><span class="proj-pill">Scapy</span><span
+                                class="proj-pill">Wireshark</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MEDIASSIST PROJECT WINDOW -->
+    <div class="win" id="win-mediassist" style="display:none; top:100px; left:250px; width:600px; height:480px;">
+        <div class="win-titlebar" onmousedown="startDrag(event,'win-mediassist')">
+            <div class="win-controls">
+                <button class="win-btn win-close" onclick="closeWindow('mediassist')"></button>
+                <button class="win-btn win-min" onclick="minimizeWindow('mediassist')"></button>
+                <button class="win-btn win-max"></button>
+            </div>
+            <span class="win-title">🏥 MediAssist AI</span>
+            <div style="width:52px"></div>
+        </div>
+        <div class="win-body" style="overflow-y:auto; padding:24px;">
+            <div class="proj-detail-banner mediassist-bg"
+                style="height:100px;border-radius:10px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
+                🏥</div>
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+                <span class="proj-tag tag-cyan">AI + RAG</span>
+                <span class="proj-tag tag-featured">✦ Featured</span>
+                <span class="proj-tag tag-blue">FastAPI</span>
+            </div>
+            <h2 style="color:#fff;font-size:1.4rem;margin-bottom:8px;">MediAssist AI</h2>
+            <p style="color:#a3a3a3;font-size:.92rem;line-height:1.75;margin-bottom:16px;">An AI platform for doctors to
+                query patient medical records via a RAG pipeline — reducing consultation time and enabling
+                evidence-based clinical decisions. Features two-portal architecture (patient & doctor), semantic search
+                over uploaded PDFs, and automated consultation note generation.</p>
+            <div class="proj-detail-section">
+                <h4>Architecture</h4>
+                <p>Python backend with FAISS vector store. Documents are chunked, embedded via sentence transformers,
+                    indexed in FAISS, and retrieved semantically on doctor queries. An LLM then synthesizes
+                    context-aware answers.</p>
+            </div>
+            <div class="proj-detail-section">
+                <h4>Key Features</h4>
+                <ul>
+                    <li>RAG-powered medical Q&A over patient PDF records</li>
+                    <li>Patient timeline with chronological document visualization</li>
+                    <li>Report comparison (old vs. new diagnostic values)</li>
+                    <li>Automated consultation note generation</li>
+                </ul>
+            </div>
+            <div class="proj-stack" style="margin-top:16px;">
+                <span class="proj-pill">Python</span><span class="proj-pill">RAG</span><span
+                    class="proj-pill">FAISS</span><span class="proj-pill">LLMs</span><span
+                    class="proj-pill">FastAPI</span>
+            </div>
+            <button class="proj-ask-ai-btn"
+                onclick="askAIFromProject('MediAssist AI — an AI Clinical Decision Support Platform using RAG + FAISS')">
+                <i data-lucide="sparkles"></i> Ask AI About This
+            </button>
+        </div>
+    </div>
+
+    <!-- SHOPNEST PROJECT WINDOW -->
+    <div class="win" id="win-shopnest" style="display:none; top:100px; left:250px; width:600px; height:460px;">
+        <div class="win-titlebar" onmousedown="startDrag(event,'win-shopnest')">
+            <div class="win-controls">
+                <button class="win-btn win-close" onclick="closeWindow('shopnest')"></button>
+                <button class="win-btn win-min" onclick="minimizeWindow('shopnest')"></button>
+                <button class="win-btn win-max"></button>
+            </div>
+            <span class="win-title">🛍️ ShopNest</span>
+            <div style="width:52px"></div>
+        </div>
+        <div class="win-body" style="overflow-y:auto; padding:24px;">
+            <div class="proj-detail-banner shopnest-bg"
+                style="height:100px;border-radius:10px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
+                🛍️</div>
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+                <span class="proj-tag tag-blue">Full Stack</span>
+                <span class="proj-tag tag-green">Live on GitHub</span>
+            </div>
+            <h2 style="color:#fff;font-size:1.4rem;margin-bottom:8px;">ShopNest</h2>
+            <p style="color:#a3a3a3;font-size:.92rem;line-height:1.75;margin-bottom:16px;">A production-grade e-commerce
+                platform built on the MVC architecture. Features JWT + bcrypt authentication, admin dashboard with
+                product management, Razorpay payment gateway, Multer image uploads, and MongoDB-backed operations.</p>
+            <div class="proj-detail-section">
+                <h4>Architecture</h4>
+                <p>Express.js server with MongoDB and Mongoose ODM. Routes separated into owners, users, orders, and
+                    payments. EJS templates for server-side rendering. JWT handles stateless auth.</p>
+            </div>
+            <div class="proj-detail-section">
+                <h4>Key Features</h4>
+                <ul>
+                    <li>JWT + bcrypt authentication with protected middleware</li>
+                    <li>Admin dashboard with CRUD product management</li>
+                    <li>Razorpay payment gateway integration</li>
+                    <li>Image uploads via Multer · Shopping cart & order tracking</li>
+                </ul>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
+                <div class="proj-stack">
+                    <span class="proj-pill">Node.js</span><span class="proj-pill">Express.js</span><span
+                        class="proj-pill">MongoDB</span><span class="proj-pill">EJS</span><span
+                        class="proj-pill">Razorpay</span>
+                </div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:16px;">
+                <a href="https://github.com/codeanytimeprashant/ShopNest" target="_blank" class="proj-link-btn"><i
+                        data-lucide="github"></i> View on GitHub</a>
+                <button class="proj-ask-ai-btn"
+                    onclick="askAIFromProject('ShopNest — a full-stack e-commerce with Node.js, MongoDB, JWT auth, and Razorpay')"><i
+                        data-lucide="sparkles"></i> Ask AI</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECRUITERAI PROJECT WINDOW -->
+    <div class="win" id="win-recruiterai" style="display:none; top:110px; left:260px; width:580px; height:400px;">
+        <div class="win-titlebar" onmousedown="startDrag(event,'win-recruiterai')">
+            <div class="win-controls">
+                <button class="win-btn win-close" onclick="closeWindow('recruiterai')"></button>
+                <button class="win-btn win-min" onclick="minimizeWindow('recruiterai')"></button>
+                <button class="win-btn win-max"></button>
+            </div>
+            <span class="win-title">💼 RecruiterAI</span>
+            <div style="width:52px"></div>
+        </div>
+        <div class="win-body" style="overflow-y:auto; padding:24px;">
+            <div class="proj-detail-banner recruiter-bg"
+                style="height:90px;border-radius:10px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
+                💼</div>
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+                <span class="proj-tag tag-cyan">AI</span><span class="proj-tag tag-purple">CLI</span>
+            </div>
+            <h2 style="color:#fff;font-size:1.4rem;margin-bottom:8px;">RecruiterAI</h2>
+            <p style="color:#a3a3a3;font-size:.92rem;line-height:1.75;margin-bottom:16px;">A command-line RAG pipeline
+                that loads a resume PDF, chunks and embeds content using sentence transformers, stores vectors in FAISS,
+                and answers recruiter queries using an LLM. The foundation of MediAssist's AI engine.</p>
+            <div class="proj-stack" style="margin-top:8px;">
+                <span class="proj-pill">Python</span><span class="proj-pill">FAISS</span><span
+                    class="proj-pill">Sentence Transformers</span><span class="proj-pill">LLM</span>
+            </div>
+            <button class="proj-ask-ai-btn"
+                onclick="askAIFromProject('RecruiterAI — a RAG CLI using FAISS + embeddings + LLM to answer questions about a resume')">
+                <i data-lucide="sparkles"></i> Ask AI About This
+            </button>
+        </div>
+    </div>
+
+    <!-- DPI PROJECT WINDOW -->
+    <div class="win" id="win-dpi" style="display:none; top:110px; left:260px; width:580px; height:400px;">
+        <div class="win-titlebar" onmousedown="startDrag(event,'win-dpi')">
+            <div class="win-controls">
+                <button class="win-btn win-close" onclick="closeWindow('dpi')"></button>
+                <button class="win-btn win-min" onclick="minimizeWindow('dpi')"></button>
+                <button class="win-btn win-max"></button>
+            </div>
+            <span class="win-title">🔍 Deep Packet Inspector</span>
+            <div style="width:52px"></div>
+        </div>
+        <div class="win-body" style="overflow-y:auto; padding:24px;">
+            <div class="proj-detail-banner dpi-bg"
+                style="height:90px;border-radius:10px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;">
+                🔍</div>
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+                <span class="proj-tag tag-orange">Networking</span>
+            </div>
+            <h2 style="color:#fff;font-size:1.4rem;margin-bottom:8px;">Deep Packet Inspector</h2>
+            <p style="color:#a3a3a3;font-size:.92rem;line-height:1.75;margin-bottom:16px;">A Python tool built with
+                Scapy to capture, inspect, and filter live TCP/IP network packets. Supports protocol-based filtering and
+                integrates with Wireshark for deep analysis and debugging.</p>
+            <div class="proj-stack" style="margin-top:8px;">
+                <span class="proj-pill">Python</span><span class="proj-pill">Scapy</span><span
+                    class="proj-pill">TCP/IP</span><span class="proj-pill">Wireshark</span>
+            </div>
+            <button class="proj-ask-ai-btn"
+                onclick="askAIFromProject('Deep Packet Inspector — a Python Scapy tool for capturing and analyzing TCP/IP traffic')">
+                <i data-lucide="sparkles"></i> Ask AI About This
+            </button>
+        </div>
+    </div>
+
+    <!-- TERMINAL / TECH STACK WINDOW -->
+    <div class="win" id="win-terminal" style="display:none; top:90px; left:300px; width:600px; height:420px;">
+
+        <div class="win-titlebar" onmousedown="startDrag(event,'win-terminal')">
+
+            <div class="win-controls">
+                <button class="win-btn win-close" onclick="closeWindow('terminal')" title="Close"></button>
+
+                <button class="win-btn win-min" onclick="minimizeWindow('terminal')" title="Minimize"></button>
+
+                <button class="win-btn win-max" title="Maximize"></button>
+            </div>
+
+            <span class="win-title">
+                <i data-lucide="terminal" style="width:14px;height:14px;margin-right:6px;"></i>
+                Tech Stack
+            </span>
+
+            <div style="width:52px"></div>
+        </div>
+
+
+        <!-- TECH STACK CONTENT -->
+        <div class="win-body terminal-body-mac" id="terminal-mac-body" style="
+            padding:24px;
+            overflow-y:auto;
+            background:#0d1117;
+            color:#fff;
+            font-family:'JetBrains Mono', monospace;
+        ">
+
+            <div style="margin-bottom:20px;">
+                <div style="color:#6ee7b7;">
+                    $ prashant@portfolio:~$
+                </div>
+
+                <div style="margin-top:6px;color:#d1d5db;">
+                    cat tech-stack.txt
+                </div>
+            </div>
+
+
+            <!-- FRONTEND -->
+            <div style="margin-bottom:22px;">
+
+                <div style="color:#60a5fa;margin-bottom:10px;">
+                    &gt; FRONTEND
+                </div>
+
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+
+                    <span class="proj-pill">HTML</span>
+                    <span class="proj-pill">CSS</span>
+                    <span class="proj-pill">JavaScript</span>
+                    <span class="proj-pill">Tailwind CSS</span>
+                    <span class="proj-pill">EJS</span>
+
+                </div>
+            </div>
+
+
+            <!-- BACKEND -->
+            <div style="margin-bottom:22px;">
+
+                <div style="color:#c084fc;margin-bottom:10px;">
+                    &gt; BACKEND
+                </div>
+
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+
+                    <span class="proj-pill">Node.js</span>
+                    <span class="proj-pill">Express.js</span>
+                    <span class="proj-pill">Python</span>
+                    <span class="proj-pill">FastAPI</span>
+
+                </div>
+            </div>
+
+
+            <!-- DATABASE -->
+            <div style="margin-bottom:22px;">
+
+                <div style="color:#34d399;margin-bottom:10px;">
+                    &gt; DATABASE
+                </div>
+
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+
+                    <span class="proj-pill">MongoDB</span>
+                    <span class="proj-pill">MySQL</span>
+                    <span class="proj-pill">Mongoose</span>
+
+                </div>
+            </div>
+
+
+            <!-- AI / ML -->
+            <div style="margin-bottom:22px;">
+
+                <div style="color:#67e8f9;margin-bottom:10px;">
+                    &gt; AI / MACHINE LEARNING
+                </div>
+
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+
+                    <span class="proj-pill">RAG</span>
+                    <span class="proj-pill">LLMs</span>
+                    <span class="proj-pill">FAISS</span>
+                    <span class="proj-pill">Embeddings</span>
+                    <span class="proj-pill">Sentence Transformers</span>
+
+                </div>
+            </div>
+
+
+            <!-- PROGRAMMING -->
+            <div style="margin-bottom:22px;">
+
+                <div style="color:#fbbf24;margin-bottom:10px;">
+                    &gt; PROGRAMMING
+                </div>
+
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+
+                    <span class="proj-pill">C++</span>
+                    <span class="proj-pill">Python</span>
+                    <span class="proj-pill">JavaScript</span>
+
+                </div>
+            </div>
+
+
+            <!-- TOOLS -->
+            <div style="margin-bottom:10px;">
+
+                <div style="color:#fb923c;margin-bottom:10px;">
+                    &gt; TOOLS
+                </div>
+
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+
+                    <span class="proj-pill">Git</span>
+                    <span class="proj-pill">GitHub</span>
+                    <span class="proj-pill">VS Code</span>
+                    <span class="proj-pill">Postman</span>
+                    <span class="proj-pill">Vercel</span>
+
+                </div>
+            </div>
+
+
+            <div style="
+            margin-top:20px;
+            padding-top:15px;
+            border-top:1px solid rgba(255,255,255,.1);
+            color:#6b7280;
+        ">
+                <span style="color:#4ade80;">●</span>
+                All systems operational
+            </div>
+
+        </div>
+    </div>
+    <!-- CONTACT WINDOW -->
+    <div class="win" id="win-contact" style="display:none; top:120px; left:350px; width:460px; height:420px;">
+        <div class="win-titlebar" onmousedown="startDrag(event,'win-contact')">
+            <div class="win-controls">
+                <button class="win-btn win-close" onclick="closeWindow('contact')"></button>
+                <button class="win-btn win-min" onclick="minimizeWindow('contact')"></button>
+                <button class="win-btn win-max"></button>
+            </div>
+            <span class="win-title">📇 Contact Me</span>
+            <div style="width:52px"></div>
+        </div>
+        <div class="win-body" style="padding:28px;">
+            <h3 style="color:#fff;font-size:1.1rem;margin-bottom:6px;">Let's Work Together</h3>
+            <p style="color:#6b7280;font-size:.84rem;margin-bottom:20px;">Open to internships, freelance, and
+                collaborations.</p>
+            <div class="contact-links">
+                <a href="mailto:ppadwal520@gmail.com" class="contact-link-btn">
+                    <i data-lucide="mail"></i>
+                    <div>
+                        <p class="contact-link-label">Email</p>
+                        <p class="contact-link-value">ppadwal520@gmail.com</p>
+                    </div>
+                </a>
+                <a href="https://linkedin.com/in/prashant-padwal-b7532125a" target="_blank" rel="noopener"
+                    class="contact-link-btn">
+                    <i data-lucide="linkedin"></i>
+                    <div>
+                        <p class="contact-link-label">LinkedIn</p>
+                        <p class="contact-link-value">prashant-padwal-b7532125a</p>
+                    </div>
+                </a>
+                <a href="https://github.com/codeanytimeprashant" target="_blank" rel="noopener"
+                    class="contact-link-btn">
+                    <i data-lucide="github"></i>
+                    <div>
+                        <p class="contact-link-label">GitHub</p>
+                        <p class="contact-link-value">codeanytimeprashant</p>
+                    </div>
+                </a>
+                <a href="https://leetcode.com/u/CODEanytime365" target="_blank" rel="noopener" class="contact-link-btn">
+                    <i data-lucide="code-2"></i>
+                    <div>
+                        <p class="contact-link-label">LeetCode</p>
+                        <p class="contact-link-value">CODEanytime365</p>
+                    </div>
+                </a>
+                <a href="assets/resume/Prashant_Padwal_Resume.pdf" download class="contact-link-btn">
+                    <i data-lucide="download"></i>
+                    <div>
+                        <p class="contact-link-label">Resume</p>
+                        <p class="contact-link-value">Download PDF</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI CHAT WINDOW -->
+    <div class="win" id="win-chat" style="display:none; top:70px; left:auto; right:40px; width:520px; height:600px;">
+        <div class="win-titlebar" onmousedown="startDrag(event,'win-chat')">
+            <div class="win-controls">
+                <button class="win-btn win-close" onclick="event.stopPropagation(); closeWindow('chat')"
+                    onmousedown="event.stopPropagation()">
+                </button>
+
+                <button class="win-btn win-min" onclick="event.stopPropagation(); minimizeWindow('chat')"
+                    onmousedown="event.stopPropagation()">
+                </button>
+                <button class="win-btn win-max"></button>
+            </div>
+            <span class="win-title"><i data-lucide="sparkles"
+                    style="width:13px;height:13px;margin-right:5px;vertical-align:middle;"></i> Ask AI</span>
+            <div style="width:52px"></div>
+        </div>
+        <div class="win-body" style="display:flex;flex-direction:column;padding:0;">
+            <div class="chat-messages-mac" id="chat-messages-mac">
+                <!-- Initial state -->
+                <div class="chat-greeting" id="chat-greeting">
+                    <p style="font-size:1.3rem;margin-bottom:14px;">👋 Ask me anything!</p>
+                    <div class="chat-suggestions-mac" id="chat-suggestions-mac">
+                        <button class="chat-chip" onclick="sendMacChat('Tell me about Prashant as an engineer.')">• Tell
+                            me about yourself</button>
+                        <button class="chat-chip" onclick="sendMacChat('What projects has Prashant built?')">• Projects
+                            you made</button>
+                        <button class="chat-chip" onclick="sendMacChat('Why should a company hire Prashant?')">• Why
+                            should I hire you?</button>
+                        <button class="chat-chip" onclick="sendMacChat('What are Prashant\'s backend skills?')">• Show
+                            your backend skills</button>
+                        <button class="chat-chip" onclick="sendMacChat('What is Prashant\'s tech stack?')">• What\\'s
+                            your tech stack?</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-mac">
+                <input type="text" id="chat-input-mac" placeholder="Type a message..."
+                    onkeydown="if(event.key==='Enter')sendMacChatFromInput()" />
+                <button id="chat-send-mac" onclick="sendMacChatFromInput()" aria-label="Send">
+                    <i data-lucide="send"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/terminal.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            lucide.createIcons();
+        });
+    </script>
+
+    <script>
+        function updatePortfolioClock() {
+            const clock = document.getElementById("menu-clock");
+
+            if (!clock) return;
+
+            const now = new Date();
+
+            const date = now.toLocaleDateString("en-IN", {
+                weekday: "short",
+                month: "short",
+                day: "numeric",
+                timeZone: "Asia/Kolkata"
+            });
+
+            const time = now.toLocaleTimeString("en-IN", {
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true,
+                timeZone: "Asia/Kolkata"
+            });
+
+            clock.textContent = `${date}  ${time}`;
+        }
+
+        updatePortfolioClock();
+        setInterval(updatePortfolioClock, 1000);
+    </script>
+
+</body>
+
+</html>
