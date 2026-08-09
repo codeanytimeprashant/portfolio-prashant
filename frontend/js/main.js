@@ -212,7 +212,7 @@ function typeInto(el, text, speed, callback) {
    AI CHAT
 ============================================================ */
 
-var API_BASE = 'https://portfolio-prashant-l42z.onrender.com';
+const API_BASE = 'http://127.0.0.1:8000';
 function initMacChat() {
     // Chat is already initialized by HTML.
 }

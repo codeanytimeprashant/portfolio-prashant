@@ -5,8 +5,7 @@
  * and renders AI responses with a typing animation.
  */
 
-const API_BASE = 'http://127.0.0.1:8000';
-
+const API_BASE = 'https://portfolio-prashant-l42z.onrender.com';
 /* -------------------------------------------------------
    DOM References
 ------------------------------------------------------- */
